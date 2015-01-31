@@ -1,5 +1,13 @@
 <div class="menu hide-left off-white dark-primary-text ">
 <div class="tab off-white">&lt;</div>
+  <% if @user %>
+    <ul>
+      <li><%= @user.name ? @user.name : @user.email %></li>
+      <% foreach @history do |location| %>
+      <li class="location-link" data-id="<%= location.id %>"><%= location.address %></li>
+      <% end %>
+    </ul>
+  <% else %>
     <form class="user-form" action="http://rails-first-try-103444.use1.nitrousbox.com/users/login" method="POST">
         <ul>
             <li><input type="text" name="name" placeholder="Name: Jane Doe" /></li>
@@ -9,6 +17,7 @@
         </ul>
         <input type="submit" value="Create Account">
     </form>
+  <% end %>
 </div>
 <div id="mapdiv" class="map">
     MAP
