@@ -1,4 +1,8 @@
 get '/' do
+  erb :index
+end
+
+post '/' do
   content_type :json
   {success: "Welcome to the SkyCast API"}.to_json
 end
