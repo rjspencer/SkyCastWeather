@@ -1,10 +1,49 @@
-<% if session[:user_id].nil? %>
-<a href="/users/new" >Create New Account</a>
-<form action="/users/login" method="POST">
-  EMAIL: <input type="text" name="email" value="" /><br>
-  PASSWORD: <input type="text" name="password" value="" />
-  <input type="submit" value="Log In" />
-</form>
-<% else %>
-LOGGED IN - <a href="/users/logout">LOG OUT</a>
-<% end %>
+<div class="menu hide-left off-white dark-primary-text ">
+<div class="tab off-white">&lt;</div>
+    <form class="user-form" action="http://rails-first-try-103444.use1.nitrousbox.com/users/login" method="POST">
+        <ul>
+            <li><input type="text" name="name" placeholder="Name: Jane Doe" /></li>
+            <li><input type="email" name="email" placeholder="Email: j.doe@email.com" /></li>
+            <li><input type="password" name="password" placeholder="Password: 50meTh!n6h@rd" /></li>
+            <li><input type="text" name="zip" placeholder="ZIP code: 55555" /></li>
+        </ul>
+        <input type="submit" value="Create Account">
+    </form>
+</div>
+<div id="mapdiv" class="map">
+    MAP
+</div>
+<div class="forecast">
+    <h3>WEEKLY FORECAST</h3>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+    <div class="box">
+        <div class="temp accent-primary-text">32</div>
+        <div class="day">monday</div>
+    </div>
+</div>
+<div id="chartdiv" class="chart">
+    CHART
+</div>
