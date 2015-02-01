@@ -1,22 +1,69 @@
-$(document).ready(function() {
-
-
-
-var chart,
-    chartData = [
+$(document).ready( function() {
+//    setTimeout( function() { 
+//        $(".logo").fadeOut(500, function() {
+//            $(".logo").removeClass("splash").fadeIn(500);
+//            
+//        });
+//    }, 500);
+    
+    $(".menu").on("click", ".tab", function() {
+      $(".menu").toggleClass("hide-left");  
+    });
+    
+    //callback handler for form submit
+    $("form").submit( function(event)
     {
-        "day": "Monday",
-        "current_temps": 23.5,
-        "last_year_temps": 18.1
-    } 
-];
+        event.preventDefault();
+        
+        var postData = $(this).serializeArray(),
+          formURL = $(this).attr("action");
+      
+        $.ajax({
+            url : formURL,
+            type: "POST",
+            data: postData,
+            success: function(data) {
+              if(data.success) {                
+                if(data.forecast.alerts) {
+                  $(".alert").removeClass("hidden");
+                  $(".alert > .title").text(data.forecast.alerts[0].title);
+                  $(".alert > .description").text(data.forecast.alerts[0].description.toLowerCase());
+                } else {
+                  $(".alert").addClass("hidden");
+                  $(".alert > .title").text("");
+                  $(".alert > .description").text("");
+                }
+                daily = data.forecast.daily;
+                var box_template = $('.forecast .box:first').clone();
+                $(".forecast").empty().append("<h3>" + daily.summary + "</h3>");
+                
+                $.each(daily.data, function(key, value) {
+                  var day = moment.unix(value.time),
+                      temp = parseInt((value.temperatureMax + value.temperatureMin) / 2),
+                      box = box_template.clone();
+       
+                  box.children(".icon").attr("src", "img/weather-icons/" + value.icon + ".svg");
+                  box.children(".temp").text(temp);
+                  box.children(".summary").text(value.summary);
+                  box.children(".day").text(day.format("dddd"));
+                  $(".forecast").append(box);
+                                    
+                });
+                
+              } else {
+                console.log(data);
+              }
+            }
+        });
+        
+    });
 
-AmCharts.ready(function() {
+  AmCharts.ready(function() {
     // SERIAL CHART  
     chart = new AmCharts.AmSerialChart();
     chart.pathToImages = "img/charts/";
     chart.dataProvider = chartData;
-    chart.categoryField = "day";
+    chart.categoryField = "year";
     chart.startDuration = 1;
 
     chart.handDrawn = true;
@@ -49,7 +96,7 @@ AmCharts.ready(function() {
     // line
     var graph2 = new AmCharts.AmGraph();
     graph2.type = "line";
-    graph2.title = "Last Year";
+    graph2.title = "Same Time Last Year";
     graph2.lineColor = "#fcd202";
     graph2.valueField = "last_year_temps";
     graph2.lineThickness = 3;
@@ -76,12 +123,9 @@ AmCharts.ready(function() {
 
     map.colorSteps = 10;
 
-    var dataProvider = {
-        mapVar: AmCharts.maps.usaLow,
-        areas: [ { id: "US-AL", value: 30 } ]
-    };
+    
     map.areasSettings = {
-        autoZoom: true
+      autoZoom: true
     };
     map.dataProvider = dataProvider;
     var valueLegend = new AmCharts.ValueLegend();
@@ -91,6 +135,19 @@ AmCharts.ready(function() {
     map.valueLegend = valueLegend;
 
     map.write("mapdiv");
+  });
 });
-    
-});
+
+var chart;
+var chartData = [
+  {
+    "year": "Monday",
+    "current_temps": 23.5,
+    "last_year_temps": 18.1
+  },
+];
+
+var dataProvider = {
+  mapVar: AmCharts.maps.usaLow,
+  areas: [ {id: "US-AL", value: 30} ]
+};
