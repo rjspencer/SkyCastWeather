@@ -24,7 +24,7 @@ class Location < ActiveRecord::Base
   def forecast time=false
     url = "https://api.forecast.io/forecast/#{FORECAST_KEY}/#{self.latitude},#{self.longitude}"
     url += ",#{time}" if time
-    url += "?exclude=minutely"
+    url += "?exclude=minutely,hourly"
     data = JSON.parse(open(url).read)
   end
 

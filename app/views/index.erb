@@ -8,7 +8,7 @@
       <% end %>
     </ul>
   <% else %>
-    <form class="user-form" action="http://rails-first-try-103444.use1.nitrousbox.com/users/login" method="POST">
+    <form class="user-form" action="http://rails-first-try-103444.use1.nitrousbox.com/users" method="POST">
         <ul>
             <li><input type="text" name="name" placeholder="Name: Jane Doe" /></li>
             <li><input type="email" name="email" placeholder="Email: j.doe@email.com" /></li>
@@ -18,12 +18,6 @@
         <input class="button" type="submit" value="Create Account">
     </form>
   <% end %>
-</div>
-<div class="search">
-  <form class="user-form" action="http://rails-first-try-103444.use1.nitrousbox.com/locations" method="POST">
-    <input type="text" name="address" placeholder="Search: ZIP or address..." />
-    <input class="button" type="submit" value="Go">
-  </form>
 </div>
 <div class="alert hidden">
   <h3 class="title accent-primary-text">Alerts:</h3>
@@ -35,33 +29,11 @@
 <div class="forecast">
     <h3>WEEKLY FORECAST</h3>
     <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
-    <div class="box">
-        <div class="temp accent-primary-text">32</div>
-        <div class="day">monday</div>
-    </div>
+        <img class="icon" src=""/>
+        <div class="temp accent-primary-text"></div>
+        <div class="day"></div>
+        <div class="summary"></div>
+    </div> 
 </div>
 <div id="chartdiv" class="chart">
     CHART
