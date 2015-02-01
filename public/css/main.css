@@ -163,7 +163,7 @@ div.texture {
     z-index: 1;
 }
 
-div.map, div.menu, div.forecast, div.chart {
+div.map, div.menu, div.forecast, div.chart, div.alert {
     flex: 1 100%;
     min-height: 200px;
     border: 4px solid;
@@ -365,8 +365,6 @@ div.map, div.menu, div.forecast, div.chart, div.search {
 .accent-primary-text {
     color: #EFF299;
 }
-
-
 
 /* ==========================================================================
    Helper classes

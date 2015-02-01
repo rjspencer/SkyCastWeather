@@ -15,24 +15,31 @@ $(document).ready( function() {
     {
         event.preventDefault();
         
-        var postData = $(this).serializeArray();
-        var formURL = $(this).attr("action");
-        $.ajax(
-        {
+        var postData = $(this).serializeArray(),
+          formURL = $(this).attr("action");
+      
+        $.ajax({
             url : formURL,
             type: "POST",
             data: postData,
-            done: function(data) 
-            {
+            success: function(data) {
+              if(data.success) {
+                if(data.forecast.alerts) {
+                  $(".alert").removeClass("hidden");
+                  $(".alert > .title").text(data.forecast.alerts[0].title);
+                  $(".alert > .description").text(data.forecast.alerts[0].description);
+                } else {
+                  $(".alert").addClass("hidden");
+                  $(".alert > .title").text("");
+                  $(".alert > .description").text("");
+                }
+                
+              } else {
                 console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) 
-            {
-                console.log(errorThrown);
+              }
             }
         });
         
     });
 
-    $("#ajaxform").submit();
 });

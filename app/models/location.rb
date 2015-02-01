@@ -8,7 +8,7 @@ class Location < ActiveRecord::Base
   GEOLOCATE_KEY = ""
   
   def geolocateAddress address
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{address}"
+    url = URI.encode("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}")
     data = JSON.parse(open(url).read)
     if data[:status] = "OK"
       geo_data = data["results"][0]["geometry"]["location"]
