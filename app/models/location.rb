@@ -30,7 +30,7 @@ class Location < ActiveRecord::Base
   end
   
   def forecast time=false
-    api_data = getForecastFromAPI
+    api_data = getForecastFromAPI(time)
     convertDataFromAPI(api_data)
   end
     

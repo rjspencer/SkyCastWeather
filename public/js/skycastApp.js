@@ -11,7 +11,10 @@ app.controller("forecastCtrl", function($scope, $http) {
     };
     $scope.alerts = [];
     $scope.daily = [];
-    $scope.chart_series = ["This Week", "Last Year"];
+    // CHART
+    $scope.labels = [];
+    $scope.temps = [[1,1,1,1,1,1,1],[1,1,1,1,1,1,1]];
+    $scope.series = ["This Week", "Last Year"];
     
     if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
@@ -41,23 +44,40 @@ app.controller("forecastCtrl", function($scope, $http) {
                     $(".alert").addClass("hidden");
                 }
                 $scope.daily = data.forecast.daily;
+                $scope.labels = [];
+                $scope.temps = [[],[]];
+                angular.forEach($scope.daily.data, function(day) {
+                    $scope.labels.push(day.day_name);
+                    $scope.temps[0].push(day.temperatureMax);
+                });
                 $scope.alertList = data.forecast.alerts;
+                $scope.last_year = (Date.now() - (1000*60*60*24*365))/1000;
+                $scope.getPastForecast(use_geolocation, $scope.last_year);
+                
             })
-            .error( function(data) {
-
-            });
-    };
+        };
     
-    // CHART
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.chart_temps = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-    ];
-    $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-    };
-    
+    $scope.getPastForecast = function(use_geolocation, time) {
+        var url = "/locations?time=" + parseInt(time);
+        if (use_geolocation && $scope.currentPosition.longitude && $scope.currentPosition.latitude) {
+            params = "&longitude=" + $scope.currentPosition.longitude +
+                    "&latitude=" + $scope.currentPosition.latitude;
+            $scope.search = null;
+        } else {
+            params = "?address=" + $scope.search;
+        }
+        
+        $http.get(url + params)
+            .success( function(data) {
+                var daily = data.forecast.daily;
+                angular.forEach(daily.data, function(day) {
+                    $scope.temps[1].unshift(day.temperatureMax);
+                });
+                if (time >= $scope.last_year - (60*60*24*6)) {
+                    $scope.getPastForecast(use_geolocation, time - 60*60*24);
+                };
+            })
+        };
 });
 
 

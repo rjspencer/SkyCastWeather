@@ -7,18 +7,23 @@ get '/locations' do
   user = User.find(session[:user_id]) if session[:user_id]
   location = Location.new
   location.user = user if user
+  if params[:time]
+      time = params[:time]
+  else
+      time = false
+  end
   
   if params[:latitude] && params[:longitude]
     location.latitude = params[:latitude]
     location.longitude = params[:longitude]
     response[:location] = location
-    response[:forecast] = location.forecast
+    response[:forecast] = location.forecast(time)
     response[:success] = "OK"
     location.save
   elsif params[:address]
     if location.geolocateAddress params[:address]
         response[:location] = location
-        response[:forecast] = location.forecast
+        response[:forecast] = location.forecast(time)
         response[:success] = "OK"
         location.save
     else
