@@ -45,7 +45,7 @@ class Location < ActiveRecord::Base
   def convertDataFromAPI api_data
       data = {
           alerts: [],
-          currently: [],
+          currently: {},
           daily: {data: []},
           };
       api_data["alerts"].each do |a|
@@ -61,13 +61,14 @@ class Location < ActiveRecord::Base
           data[:daily][:data] << {
               day_name: Time.at(day["time"]).strftime("%A"),
               summary: day["summary"],
-              temperature: day["temperatureMax"].to_int,
+              temperatureMax: day["temperatureMax"].to_int,
+              temperatureMin: day["temperatureMin"].to_int,
               icon: day["icon"],
               wind_speed: day["windSpeed"].to_int
               }
       end
       data[:daily][:summary] = api_data["daily"]["summary"]
-      data[:currently] << {
+      data[:currently] = {
               summary: api_data["currently"]["summary"],
               temperature: api_data["currently"]["temperature"].to_int,
               icon: api_data["currently"]["icon"],

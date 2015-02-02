@@ -34,20 +34,21 @@
 <div class="alert">
     <h3 class="title accent-primary-text">Alerts:</h3>
     <div data-ng-repeat="x in alertList" class="description">
-        <h6>{{ x.title }}</h6>{{ x.description }}
+        <h4>{{ x.title }}</h4>
+        <span class="hidden">{{ x.description }}</span>
     </div>
-</div>
-<div data-ng-model="map" id="mapdiv" class="map">
-    MAP
 </div>
 <div class="forecast">
     <h3>{{ daily.summary }}</h3>
     <div data-ng-repeat="d in daily.data" class="box">
         <img class="icon" ng-src="img/weather-icons/{{ d.icon }}.svg"/>
         <div class="temp accent-primary-text">{{ d.temperatureMax }}</div>
-        <div class="day">{{ moment.unix(d.time) }}</div>
+        <div class="day">{{ d.day_name }}</div>
         <div class="summary">{{ d.summary }}</div>
     </div> 
+</div>
+<div data-ng-model="map" id="mapdiv" class="map">
+    MAP
 </div>
 <div id="chartdiv" class="chart">
     CHART
