@@ -1,6 +1,6 @@
 <div data-ng-controller="forecastCtrl" class="container">
 
-<div class="logo dark-primary"><h1>SkyCast</h1></div>
+<div class="logo dark-primary"><h1>SkyCast</h1>{{ data }}</div>
 <div class="search">
   <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
     <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
@@ -31,21 +31,22 @@
         <li><button>{{ x.address }}</button></li>
     </ul>
 </div>
-</div>
-<div data-ng-model="alert" class="alert hidden">
-  <h3 class="title accent-primary-text">Alerts:</h3>
-  <div class="description"></div>
+<div class="alert">
+    <h3 class="title accent-primary-text">Alerts:</h3>
+    <div data-ng-repeat="x in alertList" class="description">
+        <h6>{{ x.title }}</h6>{{ x.description }}
+    </div>
 </div>
 <div data-ng-model="map" id="mapdiv" class="map">
     MAP
 </div>
-<div data-ng-model="cards" class="forecast">
-    <h3>{{ search }}</h3>
-    <div class="box">
-        <img class="icon" src=""/>
-        <div class="temp accent-primary-text"></div>
-        <div class="day"></div>
-        <div class="summary"></div>
+<div class="forecast">
+    <h3>{{ daily.summary }}</h3>
+    <div data-ng-repeat="d in daily.data" class="box">
+        <img class="icon" ng-src="img/weather-icons/{{ d.icon }}.svg"/>
+        <div class="temp accent-primary-text">{{ d.temperatureMax }}</div>
+        <div class="day">{{ moment.unix(d.time) }}</div>
+        <div class="summary">{{ d.summary }}</div>
     </div> 
 </div>
 <div id="chartdiv" class="chart">

@@ -14,49 +14,50 @@ $(document).ready( function() {
     $("form").submit( function(event)
     {
         event.preventDefault();
-        
-        var postData = $(this).serializeArray(),
-          formURL = $(this).attr("action");
-      
-        $.ajax({
-            url : formURL,
-            type: "POST",
-            data: postData,
-            success: function(data) {
-              if(data.success) {                
-                if(data.forecast.alerts) {
-                  $(".alert").removeClass("hidden");
-                  $(".alert > .title").text(data.forecast.alerts[0].title);
-                  $(".alert > .description").text(data.forecast.alerts[0].description.toLowerCase());
-                } else {
-                  $(".alert").addClass("hidden");
-                  $(".alert > .title").text("");
-                  $(".alert > .description").text("");
-                }
-                daily = data.forecast.daily;
-                var box_template = $('.forecast .box:first').clone();
-                $(".forecast").empty().append("<h3>" + daily.summary + "</h3>");
-                
-                $.each(daily.data, function(key, value) {
-                  var day = moment.unix(value.time),
-                      temp = parseInt((value.temperatureMax + value.temperatureMin) / 2),
-                      box = box_template.clone();
-       
-                  box.children(".icon").attr("src", "img/weather-icons/" + value.icon + ".svg");
-                  box.children(".temp").text(temp);
-                  box.children(".summary").text(value.summary);
-                  box.children(".day").text(day.format("dddd"));
-                  $(".forecast").append(box);
-                                    
-                });
-                
-              } else {
-                console.log(data);
-              }
-            }
-        });
-        
     });
+//        
+//        var postData = $(this).serializeArray(),
+//          formURL = $(this).attr("action");
+//      console.log(postData);
+//        $.ajax({
+//            url : formURL,
+//            type: "POST",
+//            data: postData,
+//            success: function(data) {
+//              if(data.success) {                
+//                if(data.forecast.alerts) {
+//                  $(".alert").removeClass("hidden");
+//                  $(".alert > .title").text(data.forecast.alerts[0].title);
+//                  $(".alert > .description").text(data.forecast.alerts[0].description.toLowerCase());
+//                } else {
+//                  $(".alert").addClass("hidden");
+//                  $(".alert > .title").text("");
+//                  $(".alert > .description").text("");
+//                }
+//                daily = data.forecast.daily;
+//                var box_template = $('.forecast .box:first').clone();
+//                $(".forecast").empty().append("<h3>" + daily.summary + "</h3>");
+//                
+//                $.each(daily.data, function(key, value) {
+//                  var day = moment.unix(value.time),
+//                      temp = parseInt((value.temperatureMax + value.temperatureMin) / 2),
+//                      box = box_template.clone();
+//       
+//                  box.children(".icon").attr("src", "img/weather-icons/" + value.icon + ".svg");
+//                  box.children(".temp").text(temp);
+//                  box.children(".summary").text(value.summary);
+//                  box.children(".day").text(day.format("dddd"));
+//                  $(".forecast").append(box);
+//                                    
+//                });
+//                
+//              } else {
+//                console.log(data);
+//              }
+//            }
+//        });
+//        
+//    });
 
   AmCharts.ready(function() {
     // SERIAL CHART  

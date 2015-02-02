@@ -2,7 +2,7 @@
 # 
 # latitude & longitude or postal code
 # 
-post '/locations' do
+get '/locations' do
   response = {}
   user = User.find(session[:user_id]) if session[:user_id]
   location = Location.new
@@ -16,12 +16,12 @@ post '/locations' do
     response[:success] = "OK"
     location.save
   elsif params[:address]
-     geo_data = location.geolocateAddress params[:address]
-     if geo_data
-       response[:location] = location
-       response[:forecast] = location.forecast
-       response[:success] = "OK"
-       location.save
+    geo_data = location.geolocateAddress params[:address]
+    if geo_data
+        response[:location] = location
+        response[:forecast] = location.forecast
+        response[:success] = "OK"
+        location.save
     else
       response[:error] = "Geocoding error, try again"
     end
@@ -34,7 +34,7 @@ post '/locations' do
   response.to_json
 end
 
-post '/location/history' do
+get '/location/history' do
   if session[:user_id]
     user = User.find(session[:user_id])
     response = {
