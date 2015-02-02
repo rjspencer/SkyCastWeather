@@ -56,9 +56,6 @@ class Location < ActiveRecord::Base
                   }
           end
       end
-      print "-"*40
-      p api_data["daily"]["data"]
-      print "-"*40
       api_data["daily"]["data"].each do |day|
           data[:daily][:data] << {
               day_name: Time.at(day["time"]).strftime("%A"),
