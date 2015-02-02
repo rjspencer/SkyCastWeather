@@ -1,3 +1,12 @@
+<div data-ng-controller="forecastCtrl" class="container">
+
+<div class="logo dark-primary"><h1>SkyCast</h1></div>
+<div class="search">
+  <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
+    <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
+    <input class="button" type="submit" value="Go">
+  </form>
+</div>
 <div class="menu hide-left off-white dark-primary-text ">
 <div class="tab off-white">&lt;</div>
   <% if @user %>
@@ -18,16 +27,20 @@
         <input class="button" type="submit" value="Create Account">
     </form>
   <% end %>
+    <ul ng-repeat="x in searchList">
+        <li><button>{{ x.address }}</button></li>
+    </ul>
 </div>
-<div class="alert hidden">
+</div>
+<div data-ng-model="alert" class="alert hidden">
   <h3 class="title accent-primary-text">Alerts:</h3>
   <div class="description"></div>
 </div>
-<div id="mapdiv" class="map">
+<div data-ng-model="map" id="mapdiv" class="map">
     MAP
 </div>
-<div class="forecast">
-    <h3>WEEKLY FORECAST</h3>
+<div data-ng-model="cards" class="forecast">
+    <h3>{{ search }}</h3>
     <div class="box">
         <img class="icon" src=""/>
         <div class="temp accent-primary-text"></div>
@@ -38,3 +51,5 @@
 <div id="chartdiv" class="chart">
     CHART
 </div>
+</div>
+<!--    <div class="texture"></div>-->
