@@ -1,6 +1,6 @@
 <div data-ng-controller="forecastCtrl"  class="container">
 <!-- TODO ^put up there^ data-ng-init="getNewForecast()" -->
-<div class="logo dark-primary"><h1>SkyCast</h1>{{ position }}</div>
+<div class="logo"><h1>SkyCast</h1>{{ position }}</div>
 <div class="search">
   <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
     <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
@@ -49,7 +49,7 @@
 </div>
 <div id="chart" class="chart">
     <canvas id="line" class="chart chart-line" data="temps" labels="labels" legend="true" series="series" height="300px" width="500px">
-    </canvas><input {{ temps }}
+    </canvas>{{ temps }}
 </div>
 </div>
 <!--    <div class="texture"></div>-->

@@ -4,7 +4,9 @@
 # 
 get '/locations' do
   response = {}
-  user = User.find(session[:user_id]) if session[:user_id]
+  if session[:user_id]
+    user = User.find(session[:user_id]) rescue nil
+  end
   location = Location.new
   location.user = user if user
   if params[:time]

@@ -55,6 +55,8 @@ class Location < ActiveRecord::Base
                   description: a["description"]
                   }
           end
+      else 
+        data[:alerts] = false
       end
       api_data["daily"]["data"].each do |day|
           data[:daily][:data] << {
