@@ -16,8 +16,7 @@ get '/locations' do
     response[:success] = "OK"
     location.save
   elsif params[:address]
-    geo_data = location.geolocateAddress params[:address]
-    if geo_data
+    if location.geolocateAddress params[:address]
         response[:location] = location
         response[:forecast] = location.forecast
         response[:success] = "OK"

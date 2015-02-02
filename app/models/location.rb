@@ -48,11 +48,13 @@ class Location < ActiveRecord::Base
           currently: {},
           daily: {data: []},
           };
-      api_data["alerts"].each do |a|
-          data[:alerts] << {
-              title: a["title"],
-              description: a["description"]
-              }
+      if api_data["alerts"]
+          api_data["alerts"].each do |a|
+              data[:alerts] << {
+                  title: a["title"],
+                  description: a["description"]
+                  }
+          end
       end
       print "-"*40
       p api_data["daily"]["data"]

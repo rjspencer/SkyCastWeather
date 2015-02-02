@@ -1,6 +1,6 @@
-<div data-ng-controller="forecastCtrl" class="container">
-
-<div class="logo dark-primary"><h1>SkyCast</h1>{{ data }}</div>
+<div data-ng-controller="forecastCtrl"  class="container">
+<!-- TODO ^put up there^ data-ng-init="getNewForecast()" -->
+<div class="logo dark-primary"><h1>SkyCast</h1>{{ position }}</div>
 <div class="search">
   <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
     <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
@@ -31,7 +31,7 @@
         <li><button>{{ x.address }}</button></li>
     </ul>
 </div>
-<div class="alert">
+<div class="alert hidden">
     <h3 class="title accent-primary-text">Alerts:</h3>
     <div data-ng-repeat="x in alertList" class="description">
         <h4>{{ x.title }}</h4>
@@ -47,11 +47,11 @@
         <div class="summary">{{ d.summary }}</div>
     </div> 
 </div>
-<div data-ng-model="map" id="mapdiv" class="map">
-    MAP
-</div>
-<div id="chartdiv" class="chart">
-    CHART
+<div id="chart" class="chart">
+    <canvas id="line" class="chart chart-line" data="chart_temps"
+        labels="chart_names" legend="true" series="chart_series"
+        click="onClick">
+    </canvas> 
 </div>
 </div>
 <!--    <div class="texture"></div>-->
