@@ -1,6 +1,8 @@
 get '/' do
   if session[:user_id]
     @user = User.find(session[:user_id]) rescue nil
+  else 
+    @user = User.new
   end
   erb :index
 end
