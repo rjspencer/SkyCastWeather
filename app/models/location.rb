@@ -5,7 +5,7 @@ class Location < ActiveRecord::Base
   FORECAST_KEY = "87ff6d41d5731793a1f9eb9cc54ccee5"
   
   # developers.google.com
-  GEOLOCATE_KEY = ""
+  GEOLOCATE_KEY = "AIzaSyAOPuKGSn3FAtKkw7kKyDsuny0lh_BjS9A"
   
   def geolocateAddress address
     cached = self.find_by_address(address) rescue nil
