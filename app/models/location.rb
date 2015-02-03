@@ -15,14 +15,16 @@ class Location < ActiveRecord::Base
         self.longitude = cached.longitude
         return true
     else
-        url = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}")
+        url = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=#{GEOLOCATE_KEY}")
         data = JSON.parse(open(url).read)
         if data[:status] = "OK"
           geo_data = data["results"][0]["geometry"]["location"]
-          self.address = address
-          self.latitude = geo_data["lat"]
-          self.longitude = geo_data["lng"]
-          return true
+          if geo_data
+              self.address = address
+              self.latitude = geo_data["lat"]
+              self.longitude = geo_data["lng"]
+              return true
+          end
         end
     end
     
