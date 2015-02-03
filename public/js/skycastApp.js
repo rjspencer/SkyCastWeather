@@ -51,8 +51,8 @@ app.controller("forecastCtrl", function($scope, $http) {
                     $scope.temps[0].push(day.temperatureMax);
                 });
                 $scope.alertList = data.forecast.alerts;
-                $scope.last_year = (Date.now() - (1000*60*60*24*365))/1000;
-                $scope.getPastForecast(use_geolocation, $scope.last_year);
+//                $scope.last_year = (Date.now() - (1000*60*60*24*365))/1000;
+//                $scope.getPastForecast(use_geolocation, $scope.last_year);
                 
             })
         };
