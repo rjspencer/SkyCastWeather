@@ -11,8 +11,8 @@ class Location < ActiveRecord::Base
     cached = self.find_by_address(address) rescue nil
     if cached
         self.address = address
-        self.latitude = cached.latitude
-        self.longitude = cached.longitude
+        self.latitude = cached.latitude.to_f.round(6)
+        self.longitude = cached.longitude.to_f.round(6)
         return true
     else
         url = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=#{GEOLOCATE_KEY}")
@@ -21,8 +21,8 @@ class Location < ActiveRecord::Base
           geo_data = data["results"][0]["geometry"]["location"]
           if geo_data
               self.address = address
-              self.latitude = geo_data["lat"]
-              self.longitude = geo_data["lng"]
+              self.latitude = geo_data["lat"].to_f.round(6)
+              self.longitude = geo_data["lng"].to_f.round(6)
               return true
           end
         end
@@ -37,7 +37,7 @@ class Location < ActiveRecord::Base
   end
     
   def getForecastFromAPI time=false
-    url = "https://api.forecast.io/forecast/#{FORECAST_KEY}/#{self.latitude},#{self.longitude}"
+    url = "https://api.forecast.io/forecast/#{FORECAST_KEY}/#{self.latitude.to_f.round(6)},#{self.longitude.to_f.round(6)}"
     url += ",#{time}" if time
     url += "?exclude=minutely,hourly"
       

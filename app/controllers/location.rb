@@ -16,8 +16,8 @@ get '/locations' do
   end
   
   if params[:latitude] && params[:longitude]
-    location.latitude = params[:latitude]
-    location.longitude = params[:longitude]
+    location.latitude = params[:latitude].to_f.round(6)
+    location.longitude = params[:longitude].to_f.round(6)
     response[:location] = location
     response[:forecast] = location.forecast(time)
     response[:success] = "OK"
