@@ -1,55 +1,53 @@
 <div data-ng-controller="forecastCtrl"  class="container">
-<!-- TODO ^put up there^ data-ng-init="getNewForecast()" -->
-<div class="logo"><h1>SkyCast</h1>{{ position }}</div>
-<div class="search">
-  <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
-    <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
-    <input class="button" type="submit" value="Go">
-  </form>
-</div>
-<div class="menu hide-left off-white dark-primary-text ">
-<div class="tab off-white">&lt;</div>
-  <% if @user %>
-    <ul>
-      <li><%= @user.name ? @user.name : @user.email %></li>
-      <% foreach @history do |location| %>
-      <li class="location-link" data-id="<%= location.id %>"><%= location.address %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <form class="user-form" action="/users" method="POST">
+<!-- TODO ^put up there^ data-ng-init="getNewForecast()" --> 
+    <div class="search">
+      <form data-ng-submit="searchNew()" class="user-form" action="/locations" method="POST">
+        <input data-ng-model="search" type="text" name="address" placeholder="Search: ZIP or address..." />
+        <input class="button" type="submit" value="Go">
+      </form>
+    </div>
+    <div class="menu hide-left off-white dark-primary-text ">
+    <div class="tab off-white">&lt;</div>
+      <% if @user %>
         <ul>
-            <li><input type="text" name="name" placeholder="Name: Jane Doe" /></li>
-            <li><input type="email" name="email" placeholder="Email: j.doe@email.com" /></li>
-            <li><input type="password" name="password" placeholder="Password: 50meTh!n6h@rd" /></li>
-            <li><input type="text" name="zip" placeholder="ZIP code: 55555" /></li>
+          <li><%= @user.name ? @user.name : @user.email %></li>
+          <% foreach @history do |location| %>
+          <li class="location-link" data-id="<%= location.id %>"><%= location.address %></li>
+          <% end %>
         </ul>
-        <input class="button" type="submit" value="Create Account">
-    </form>
-  <% end %>
-    <ul ng-repeat="x in searchList">
-        <li><button>{{ x.address }}</button></li>
-    </ul>
-</div>
-<div class="alert hidden">
-    <h3 class="title accent-primary-text">Alerts:</h3>
-    <div data-ng-repeat="x in alertList" class="description">
-        <h4>{{ x.title }}</h4>
-        <span class="hidden">{{ x.description }}</span>
+      <% else %>
+        <form class="user-form" action="/users" method="POST">
+            <ul>
+                <li><input type="text" name="name" placeholder="Name: Jane Doe" /></li>
+                <li><input type="email" name="email" placeholder="Email: j.doe@email.com" /></li>
+                <li><input type="password" name="password" placeholder="Password: 50meTh!n6h@rd" /></li>
+                <li><input type="text" name="zip" placeholder="ZIP code: 55555" /></li>
+            </ul>
+            <input class="button" type="submit" value="Create Account">
+        </form>
+      <% end %>
+        <ul ng-repeat="x in searchList">
+            <li><button>{{ x.address }}</button></li>
+        </ul>
+    </div>
+    <div class="alert hidden">
+        <h3 class="title accent-primary-text">Alerts:</h3>
+        <div data-ng-repeat="x in alertList" class="description">
+            <h4>{{ x.title }}</h4>
+            <span class="hidden">{{ x.description }}</span>
+        </div>
+    </div>
+    <div class="forecast">
+        <h3>{{ daily.summary }}</h3>
+        <div data-ng-repeat="d in daily.data" class="box">
+            <img class="icon" ng-src="img/weather-icons/{{ d.icon }}.svg"/>
+            <div class="temp accent-primary-text">{{ d.temperatureMax }}&deg;</div>
+            <div class="day">{{ d.day_name }}</div>
+            <div class="summary">{{ d.summary }}</div>
+        </div> 
+    </div>
+    <div id="chart" class="chart">
+        <canvas id="line" class="chart chart-line" data="temps" labels="labels" legend="true" series="series" height="200px" width="500px">
+        </canvas>
     </div>
 </div>
-<div class="forecast">
-    <h3>{{ daily.summary }}</h3>
-    <div data-ng-repeat="d in daily.data" class="box">
-        <img class="icon" ng-src="img/weather-icons/{{ d.icon }}.svg"/>
-        <div class="temp accent-primary-text">{{ d.temperatureMax }}</div>
-        <div class="day">{{ d.day_name }}</div>
-        <div class="summary">{{ d.summary }}</div>
-    </div> 
-</div>
-<div id="chart" class="chart">
-    <canvas id="line" class="chart chart-line" data="temps" labels="labels" legend="true" series="series" height="300px" width="500px">
-    </canvas>
-</div>
-</div>
-<!--    <div class="texture"></div>-->

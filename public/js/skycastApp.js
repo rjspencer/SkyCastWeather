@@ -24,7 +24,7 @@ app.controller("forecastCtrl", function($scope, $http) {
       });
     });
     }
-    
+        
     $scope.getNewForecast = function(use_geolocation) {
         var url = "/locations";
         if (use_geolocation && $scope.currentPosition.longitude && $scope.currentPosition.latitude) {
